@@ -1,0 +1,6 @@
+*.lzo.o
+*.o.cmd
+*.dtb
+*.ko
+*.o
+*.mod.o
