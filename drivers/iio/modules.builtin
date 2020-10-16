@@ -1,0 +1,3 @@
+kernel/drivers/iio/industrialio.ko
+kernel/drivers/iio/adc/imx7d_adc.ko
+kernel/drivers/iio/adc/vf610_adc.ko

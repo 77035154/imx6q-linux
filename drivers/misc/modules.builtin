@@ -1,0 +1,4 @@
+kernel/drivers/misc/fxos8700.ko
+kernel/drivers/misc/fxas2100x.ko
+kernel/drivers/misc/eeprom/at24.ko
+kernel/drivers/misc/eeprom/at25.ko

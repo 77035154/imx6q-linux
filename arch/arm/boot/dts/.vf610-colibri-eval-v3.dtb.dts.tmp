@@ -1,0 +1,948 @@
+# 1 "arch/arm/boot/dts/vf610-colibri-eval-v3.dts"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "arch/arm/boot/dts/vf610-colibri-eval-v3.dts"
+# 10 "arch/arm/boot/dts/vf610-colibri-eval-v3.dts"
+/dts-v1/;
+# 1 "arch/arm/boot/dts/vf610-colibri.dtsi" 1
+# 10 "arch/arm/boot/dts/vf610-colibri.dtsi"
+# 1 "arch/arm/boot/dts/vf610.dtsi" 1
+# 10 "arch/arm/boot/dts/vf610.dtsi"
+# 1 "arch/arm/boot/dts/vf500.dtsi" 1
+# 10 "arch/arm/boot/dts/vf500.dtsi"
+# 1 "arch/arm/boot/dts/skeleton.dtsi" 1
+
+
+
+
+
+
+/ {
+ #address-cells = <1>;
+ #size-cells = <1>;
+ chosen { };
+ aliases { };
+ memory { device_type = "memory"; reg = <0 0>; };
+};
+# 11 "arch/arm/boot/dts/vf500.dtsi" 2
+# 1 "arch/arm/boot/dts/vfxxx.dtsi" 1
+# 10 "arch/arm/boot/dts/vfxxx.dtsi"
+# 1 "arch/arm/boot/dts/vf610-pinfunc.h" 1
+# 11 "arch/arm/boot/dts/vfxxx.dtsi" 2
+# 1 "./arch/arm/boot/dts/include/dt-bindings/clock/vf610-clock.h" 1
+# 12 "arch/arm/boot/dts/vfxxx.dtsi" 2
+# 1 "./arch/arm/boot/dts/include/dt-bindings/interrupt-controller/irq.h" 1
+# 13 "arch/arm/boot/dts/vfxxx.dtsi" 2
+# 1 "./arch/arm/boot/dts/include/dt-bindings/gpio/gpio.h" 1
+# 14 "arch/arm/boot/dts/vfxxx.dtsi" 2
+
+/ {
+ aliases {
+  can0 = &can0;
+  can1 = &can1;
+  serial0 = &uart0;
+  serial1 = &uart1;
+  serial2 = &uart2;
+  serial3 = &uart3;
+  serial4 = &uart4;
+  serial5 = &uart5;
+  gpio0 = &gpio0;
+  gpio1 = &gpio1;
+  gpio2 = &gpio2;
+  gpio3 = &gpio3;
+  gpio4 = &gpio4;
+  usbphy0 = &usbphy0;
+  usbphy1 = &usbphy1;
+ };
+
+ fxosc: fxosc {
+  compatible = "fixed-clock";
+  #clock-cells = <0>;
+  clock-frequency = <24000000>;
+ };
+
+ sxosc: sxosc {
+  compatible = "fixed-clock";
+  #clock-cells = <0>;
+  clock-frequency = <32768>;
+ };
+
+ reboot: syscon-reboot {
+  compatible = "syscon-reboot";
+  regmap = <&src>;
+  offset = <0x0>;
+  mask = <0x1000>;
+ };
+
+ soc {
+  #address-cells = <1>;
+  #size-cells = <1>;
+  compatible = "simple-bus";
+  interrupt-parent = <&mscm_ir>;
+  ranges;
+
+  aips0: aips-bus@40000000 {
+   compatible = "fsl,aips-bus", "simple-bus";
+   #address-cells = <1>;
+   #size-cells = <1>;
+   ranges;
+
+   mscm_cpucfg: cpucfg@40001000 {
+    compatible = "fsl,vf610-mscm-cpucfg", "syscon";
+    reg = <0x40001000 0x800>;
+   };
+
+   mscm_ir: interrupt-controller@40001800 {
+    compatible = "fsl,vf610-mscm-ir";
+    reg = <0x40001800 0x400>;
+    fsl,cpucfg = <&mscm_cpucfg>;
+    interrupt-controller;
+    #interrupt-cells = <2>;
+   };
+
+   edma0: dma-controller@40018000 {
+    #dma-cells = <2>;
+    compatible = "fsl,vf610-edma";
+    reg = <0x40018000 0x2000>,
+     <0x40024000 0x1000>,
+     <0x40025000 0x1000>;
+    dma-channels = <32>;
+    interrupts = <8 4>,
+      <9 4>;
+    interrupt-names = "edma-tx", "edma-err";
+    clock-names = "dmamux0", "dmamux1";
+    clocks = <&clks 150>,
+     <&clks 151>;
+    status = "disabled";
+   };
+
+   can0: flexcan@40020000 {
+    compatible = "fsl,vf610-flexcan";
+    reg = <0x40020000 0x4000>;
+    interrupts = <58 4>;
+    clocks = <&clks 142>,
+      <&clks 142>;
+    clock-names = "ipg", "per";
+    status = "disabled";
+   };
+
+   uart0: serial@40027000 {
+    compatible = "fsl,vf610-lpuart";
+    reg = <0x40027000 0x1000>;
+    interrupts = <61 4>;
+    clocks = <&clks 39>;
+    clock-names = "ipg";
+    dmas = <&edma0 0 2>,
+     <&edma0 0 3>;
+    dma-names = "rx","tx";
+    status = "disabled";
+   };
+
+   uart1: serial@40028000 {
+    compatible = "fsl,vf610-lpuart";
+    reg = <0x40028000 0x1000>;
+    interrupts = <62 4>;
+    clocks = <&clks 40>;
+    clock-names = "ipg";
+    dmas = <&edma0 0 4>,
+     <&edma0 0 5>;
+    dma-names = "rx","tx";
+    status = "disabled";
+   };
+
+   uart2: serial@40029000 {
+    compatible = "fsl,vf610-lpuart";
+    reg = <0x40029000 0x1000>;
+    interrupts = <63 4>;
+    clocks = <&clks 41>;
+    clock-names = "ipg";
+    dmas = <&edma0 0 6>,
+     <&edma0 0 7>;
+    dma-names = "rx","tx";
+    status = "disabled";
+   };
+
+   uart3: serial@4002a000 {
+    compatible = "fsl,vf610-lpuart";
+    reg = <0x4002a000 0x1000>;
+    interrupts = <64 4>;
+    clocks = <&clks 42>;
+    clock-names = "ipg";
+    dmas = <&edma0 0 8>,
+     <&edma0 0 9>;
+    dma-names = "rx","tx";
+    status = "disabled";
+   };
+
+   dspi0: dspi0@4002c000 {
+    #address-cells = <1>;
+    #size-cells = <0>;
+    compatible = "fsl,vf610-dspi";
+    reg = <0x4002c000 0x1000>;
+    interrupts = <67 4>;
+    clocks = <&clks 72>;
+    clock-names = "dspi";
+    spi-num-chipselects = <5>;
+    status = "disabled";
+   };
+
+   dspi1: dspi1@4002d000 {
+    #address-cells = <1>;
+    #size-cells = <0>;
+    compatible = "fsl,vf610-dspi";
+    reg = <0x4002d000 0x1000>;
+    interrupts = <68 4>;
+    clocks = <&clks 73>;
+    clock-names = "dspi";
+    spi-num-chipselects = <5>;
+    status = "disabled";
+   };
+
+   sai2: sai@40031000 {
+    compatible = "fsl,vf610-sai";
+    reg = <0x40031000 0x1000>;
+    interrupts = <86 4>;
+    clocks = <&clks 108>;
+    clock-names = "sai";
+    dma-names = "tx", "rx";
+    dmas = <&edma0 0 21>,
+     <&edma0 0 20>;
+    status = "disabled";
+   };
+
+   pit: pit@40037000 {
+    compatible = "fsl,vf610-pit";
+    reg = <0x40037000 0x1000>;
+    interrupts = <39 4>;
+    clocks = <&clks 45>;
+    clock-names = "pit";
+   };
+
+   pwm0: pwm@40038000 {
+    compatible = "fsl,vf610-ftm-pwm";
+    #pwm-cells = <3>;
+    reg = <0x40038000 0x1000>;
+    clock-names = "ftm_sys", "ftm_ext",
+           "ftm_fix", "ftm_cnt_clk_en";
+    clocks = <&clks 62>,
+     <&clks 50>,
+     <&clks 51>,
+     <&clks 52>;
+    status = "disabled";
+   };
+
+   pwm1: pwm@40039000 {
+    compatible = "fsl,vf610-ftm-pwm";
+    #pwm-cells = <3>;
+    reg = <0x40039000 0x1000>;
+    clock-names = "ftm_sys", "ftm_ext",
+           "ftm_fix", "ftm_cnt_clk_en";
+    clocks = <&clks 63>,
+     <&clks 53>,
+     <&clks 54>,
+     <&clks 55>;
+    status = "disabled";
+   };
+
+   adc0: adc@4003b000 {
+    compatible = "fsl,vf610-adc";
+    reg = <0x4003b000 0x1000>;
+    interrupts = <53 4>;
+    clocks = <&clks 138>;
+    clock-names = "adc";
+    status = "disabled";
+   };
+
+   wdoga5: wdog@4003e000 {
+    compatible = "fsl,vf610-wdt", "fsl,imx21-wdt";
+    reg = <0x4003e000 0x1000>;
+    interrupts = <20 4>;
+    clocks = <&clks 76>;
+    clock-names = "wdog";
+    status = "disabled";
+   };
+
+   qspi0: quadspi@40044000 {
+    #address-cells = <1>;
+    #size-cells = <0>;
+    compatible = "fsl,vf610-qspi";
+    reg = <0x40044000 0x1000>;
+    interrupts = <24 4>;
+    clocks = <&clks 116>,
+     <&clks 125>;
+    clock-names = "qspi_en", "qspi";
+    status = "disabled";
+   };
+
+   iomuxc: iomuxc@40048000 {
+    compatible = "fsl,vf610-iomuxc";
+    reg = <0x40048000 0x1000>;
+   };
+
+   gpio0: gpio@40049000 {
+    compatible = "fsl,vf610-gpio";
+    reg = <0x40049000 0x1000 0x400ff000 0x40>;
+    gpio-controller;
+    #gpio-cells = <2>;
+    interrupts = <107 4>;
+    interrupt-controller;
+    #interrupt-cells = <2>;
+    gpio-ranges = <&iomuxc 0 0 32>;
+   };
+
+   gpio1: gpio@4004a000 {
+    compatible = "fsl,vf610-gpio";
+    reg = <0x4004a000 0x1000 0x400ff040 0x40>;
+    gpio-controller;
+    #gpio-cells = <2>;
+    interrupts = <108 4>;
+    interrupt-controller;
+    #interrupt-cells = <2>;
+    gpio-ranges = <&iomuxc 0 32 32>;
+   };
+
+   gpio2: gpio@4004b000 {
+    compatible = "fsl,vf610-gpio";
+    reg = <0x4004b000 0x1000 0x400ff080 0x40>;
+    gpio-controller;
+    #gpio-cells = <2>;
+    interrupts = <109 4>;
+    interrupt-controller;
+    #interrupt-cells = <2>;
+    gpio-ranges = <&iomuxc 0 64 32>;
+   };
+
+   gpio3: gpio@4004c000 {
+    compatible = "fsl,vf610-gpio";
+    reg = <0x4004c000 0x1000 0x400ff0c0 0x40>;
+    gpio-controller;
+    #gpio-cells = <2>;
+    interrupts = <110 4>;
+    interrupt-controller;
+    #interrupt-cells = <2>;
+    gpio-ranges = <&iomuxc 0 96 32>;
+   };
+
+   gpio4: gpio@4004d000 {
+    compatible = "fsl,vf610-gpio";
+    reg = <0x4004d000 0x1000 0x400ff100 0x40>;
+    gpio-controller;
+    #gpio-cells = <2>;
+    interrupts = <111 4>;
+    interrupt-controller;
+    #interrupt-cells = <2>;
+    gpio-ranges = <&iomuxc 0 128 7>;
+   };
+
+   anatop: anatop@40050000 {
+    compatible = "fsl,vf610-anatop", "syscon";
+    reg = <0x40050000 0x400>;
+   };
+
+   usbphy0: usbphy@40050800 {
+    compatible = "fsl,vf610-usbphy";
+    reg = <0x40050800 0x400>;
+    interrupts = <50 4>;
+    clocks = <&clks 157>;
+    fsl,anatop = <&anatop>;
+    status = "disabled";
+   };
+
+   usbphy1: usbphy@40050c00 {
+    compatible = "fsl,vf610-usbphy";
+    reg = <0x40050c00 0x400>;
+    interrupts = <51 4>;
+    clocks = <&clks 158>;
+    fsl,anatop = <&anatop>;
+    status = "disabled";
+   };
+
+   i2c0: i2c@40066000 {
+    #address-cells = <1>;
+    #size-cells = <0>;
+    compatible = "fsl,vf610-i2c";
+    reg = <0x40066000 0x1000>;
+    interrupts = <71 4>;
+    clocks = <&clks 46>;
+    clock-names = "ipg";
+    dmas = <&edma0 0 50>,
+     <&edma0 0 51>;
+    dma-names = "rx","tx";
+    status = "disabled";
+   };
+
+   clks: ccm@4006b000 {
+    compatible = "fsl,vf610-ccm";
+    reg = <0x4006b000 0x1000>;
+    clocks = <&sxosc>, <&fxosc>;
+    clock-names = "sxosc", "fxosc";
+    #clock-cells = <1>;
+   };
+
+   usbdev0: usb@40034000 {
+    compatible = "fsl,vf610-usb", "fsl,imx27-usb";
+    reg = <0x40034000 0x800>;
+    interrupts = <75 4>;
+    clocks = <&clks 113>;
+    fsl,usbphy = <&usbphy0>;
+    fsl,usbmisc = <&usbmisc0 0>;
+    dr_mode = "peripheral";
+    status = "disabled";
+   };
+
+   usbmisc0: usb@40034800 {
+    #index-cells = <1>;
+    compatible = "fsl,vf610-usbmisc";
+    reg = <0x40034800 0x200>;
+    clocks = <&clks 113>;
+    status = "disabled";
+   };
+
+   src: src@4006e000 {
+    compatible = "fsl,vf610-src", "syscon";
+    reg = <0x4006e000 0x1000>;
+    interrupts = <96 4>;
+   };
+  };
+
+  aips1: aips-bus@40080000 {
+   compatible = "fsl,aips-bus", "simple-bus";
+   #address-cells = <1>;
+   #size-cells = <1>;
+   ranges;
+
+   edma1: dma-controller@40098000 {
+    #dma-cells = <2>;
+    compatible = "fsl,vf610-edma";
+    reg = <0x40098000 0x2000>,
+     <0x400a1000 0x1000>,
+     <0x400a2000 0x1000>;
+    dma-channels = <32>;
+    interrupts = <10 4>,
+      <11 4>;
+    interrupt-names = "edma-tx", "edma-err";
+    clock-names = "dmamux0", "dmamux1";
+    clocks = <&clks 152>,
+     <&clks 153>;
+    status = "disabled";
+   };
+
+   snvs0: snvs@400a7000 {
+       compatible = "fsl,sec-v4.0-mon", "syscon", "simple-mfd";
+    reg = <0x400a7000 0x2000>;
+
+    snvsrtc: snvs-rtc-lp {
+     compatible = "fsl,sec-v4.0-mon-rtc-lp";
+     regmap = <&snvs0>;
+     offset = <0x34>;
+     interrupts = <100 4>;
+     clocks = <&clks 182>;
+     clock-names = "snvs-rtc";
+    };
+   };
+
+   uart4: serial@400a9000 {
+    compatible = "fsl,vf610-lpuart";
+    reg = <0x400a9000 0x1000>;
+    interrupts = <65 4>;
+    clocks = <&clks 43>;
+    clock-names = "ipg";
+    status = "disabled";
+   };
+
+   uart5: serial@400aa000 {
+    compatible = "fsl,vf610-lpuart";
+    reg = <0x400aa000 0x1000>;
+    interrupts = <66 4>;
+    clocks = <&clks 44>;
+    clock-names = "ipg";
+    status = "disabled";
+   };
+
+   adc1: adc@400bb000 {
+    compatible = "fsl,vf610-adc";
+    reg = <0x400bb000 0x1000>;
+    interrupts = <54 4>;
+    clocks = <&clks 139>;
+    clock-names = "adc";
+    status = "disabled";
+   };
+
+   esdhc1: esdhc@400b2000 {
+    compatible = "fsl,imx53-esdhc";
+    reg = <0x400b2000 0x1000>;
+    interrupts = <28 4>;
+    clocks = <&clks 38>,
+     <&clks 37>,
+     <&clks 84>;
+    clock-names = "ipg", "ahb", "per";
+    status = "disabled";
+   };
+
+   usbh1: usb@400b4000 {
+    compatible = "fsl,vf610-usb", "fsl,imx27-usb";
+    reg = <0x400b4000 0x800>;
+    interrupts = <76 4>;
+    clocks = <&clks 114>;
+    fsl,usbphy = <&usbphy1>;
+    fsl,usbmisc = <&usbmisc1 0>;
+    dr_mode = "host";
+    status = "disabled";
+   };
+
+   usbmisc1: usb@400b4800 {
+    #index-cells = <1>;
+    compatible = "fsl,vf610-usbmisc";
+    reg = <0x400b4800 0x200>;
+    clocks = <&clks 114>;
+    status = "disabled";
+   };
+
+   ftm: ftm@400b8000 {
+    compatible = "fsl,ftm-timer";
+    reg = <0x400b8000 0x1000 0x400b9000 0x1000>;
+    interrupts = <44 4>;
+    clock-names = "ftm-evt", "ftm-src",
+     "ftm-evt-counter-en", "ftm-src-counter-en";
+    clocks = <&clks 64>,
+     <&clks 65>,
+     <&clks 58>,
+     <&clks 61>;
+    status = "disabled";
+   };
+
+   fec0: ethernet@400d0000 {
+    compatible = "fsl,mvf600-fec";
+    reg = <0x400d0000 0x1000>;
+    interrupts = <78 4>;
+    clocks = <&clks 148>,
+     <&clks 148>,
+     <&clks 69>;
+    clock-names = "ipg", "ahb", "ptp";
+    status = "disabled";
+   };
+
+   fec1: ethernet@400d1000 {
+    compatible = "fsl,mvf600-fec";
+    reg = <0x400d1000 0x1000>;
+    interrupts = <79 4>;
+    clocks = <&clks 149>,
+     <&clks 149>,
+     <&clks 69>;
+    clock-names = "ipg", "ahb", "ptp";
+    status = "disabled";
+   };
+
+   can1: flexcan@400d4000 {
+    compatible = "fsl,vf610-flexcan";
+    reg = <0x400d4000 0x4000>;
+    interrupts = <59 4>;
+    clocks = <&clks 143>,
+      <&clks 143>;
+    clock-names = "ipg", "per";
+    status = "disabled";
+   };
+
+  };
+ };
+};
+# 12 "arch/arm/boot/dts/vf500.dtsi" 2
+# 1 "./arch/arm/boot/dts/include/dt-bindings/interrupt-controller/arm-gic.h" 1
+# 13 "arch/arm/boot/dts/vf500.dtsi" 2
+
+/ {
+ cpus {
+  #address-cells = <1>;
+  #size-cells = <0>;
+
+  a5_cpu: cpu@0 {
+   compatible = "arm,cortex-a5";
+   device_type = "cpu";
+   reg = <0x0>;
+  };
+ };
+
+ soc {
+  aips-bus@40000000 {
+
+   intc: interrupt-controller@40002000 {
+    compatible = "arm,cortex-a9-gic";
+    #interrupt-cells = <3>;
+    interrupt-controller;
+    interrupt-parent = <&intc>;
+    reg = <0x40003000 0x1000>,
+          <0x40002100 0x100>;
+   };
+
+   global_timer: timer@40002200 {
+    compatible = "arm,cortex-a9-global-timer";
+    reg = <0x40002200 0x20>;
+    interrupts = <1 11 4>;
+    interrupt-parent = <&intc>;
+    clocks = <&clks 37>;
+   };
+  };
+ };
+};
+
+&mscm_ir {
+ interrupt-parent = <&intc>;
+};
+
+&wdoga5 {
+ status = "okay";
+};
+# 11 "arch/arm/boot/dts/vf610.dtsi" 2
+
+&a5_cpu {
+ next-level-cache = <&L2>;
+};
+
+&aips0 {
+ L2: l2-cache@40006000 {
+  compatible = "arm,pl310-cache";
+  reg = <0x40006000 0x1000>;
+  cache-unified;
+  cache-level = <2>;
+  arm,data-latency = <1 1 1>;
+  arm,tag-latency = <2 2 2>;
+ };
+};
+# 11 "arch/arm/boot/dts/vf610-colibri.dtsi" 2
+# 1 "arch/arm/boot/dts/vf-colibri.dtsi" 1
+# 10 "arch/arm/boot/dts/vf-colibri.dtsi"
+/ {
+ bl: backlight {
+  compatible = "pwm-backlight";
+  pwms = <&pwm0 0 5000000 0>;
+  status = "disabled";
+ };
+};
+
+&adc0 {
+ status = "okay";
+};
+
+&adc1 {
+ status = "okay";
+};
+
+&dspi1 {
+ bus-num = <1>;
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_dspi1>;
+};
+
+&edma0 {
+ status = "okay";
+};
+
+&esdhc1 {
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_esdhc1>;
+ bus-width = <4>;
+ cd-gpios = <&gpio1 10 1>;
+};
+
+&fec1 {
+ phy-mode = "rmii";
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_fec1>;
+};
+
+&i2c0 {
+ clock-frequency = <400000>;
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_i2c0>;
+};
+
+&pwm0 {
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_pwm0>;
+};
+
+&pwm1 {
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_pwm1>;
+};
+
+&uart0 {
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_uart0>;
+};
+
+&uart1 {
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_uart1>;
+};
+
+&uart2 {
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_uart2>;
+};
+
+&usbdev0 {
+ disable-over-current;
+ status = "okay";
+};
+
+&usbh1 {
+ disable-over-current;
+ status = "okay";
+};
+
+&usbmisc0 {
+ status = "okay";
+};
+
+&usbmisc1 {
+ status = "okay";
+};
+
+&usbphy0 {
+ status = "okay";
+};
+
+&usbphy1 {
+ status = "okay";
+};
+
+&iomuxc {
+ vf610-colibri {
+  pinctrl_gpio_ext: gpio_ext {
+   fsl,pins = <
+    0x164 0x000 0x0 0x0 0x22ed
+    0x160 0x000 0x0 0x0 0x22ed
+    0x110 0x000 0x0 0x0 0x22ed
+   >;
+  };
+
+  pinctrl_dspi1: dspi1grp {
+   fsl,pins = <
+    0x150 0x300 0x3 0x1 0x33e2
+    0x154 0x2FC 0x3 0x1 0x33e1
+    0x158 0x000 0x3 0x0 0x33e2
+    0x15C 0x2F8 0x3 0x1 0x33e2
+   >;
+  };
+
+  pinctrl_esdhc1: esdhc1grp {
+   fsl,pins = <
+    0x038 0x000 0x5 0x0 0x31ef
+    0x03C 0x000 0x5 0x0 0x31ef
+    0x040 0x000 0x5 0x0 0x31ef
+    0x044 0x000 0x5 0x0 0x31ef
+    0x048 0x000 0x5 0x0 0x31ef
+    0x04C 0x000 0x5 0x0 0x31ef
+    0x0A8 0x000 0x0 0x0 0x219d
+   >;
+  };
+
+  pinctrl_fec1: fec1grp {
+   fsl,pins = <
+    0x000 0x000 0x1 0x0 0x30d2
+    0x0D8 0x000 0x1 0x0 0x30d2
+    0x0DC 0x000 0x1 0x0 0x30d3
+    0x0E0 0x000 0x1 0x0 0x30d1
+    0x0E4 0x000 0x1 0x0 0x30d1
+    0x0E8 0x000 0x1 0x0 0x30d1
+    0x0EC 0x000 0x1 0x0 0x30d1
+    0x0F0 0x000 0x1 0x0 0x30d2
+    0x0F4 0x000 0x1 0x0 0x30d2
+    0x0F8 0x000 0x1 0x0 0x30d2
+   >;
+  };
+
+  pinctrl_i2c0: i2c0grp {
+   fsl,pins = <
+    0x090 0x33C 0x2 0x1 0x37ff
+    0x094 0x340 0x2 0x1 0x37ff
+   >;
+  };
+
+  pinctrl_pwm0: pwm0grp {
+   fsl,pins = <
+    0x058 0x000 0x1 0x0 0x1182
+    0x05C 0x000 0x1 0x0 0x1182
+   >;
+  };
+
+  pinctrl_pwm1: pwm1grp {
+   fsl,pins = <
+    0x078 0x32C 0x1 0x0 0x1182
+    0x07C 0x330 0x1 0x0 0x1182
+   >;
+  };
+
+  pinctrl_uart0: uart0grp {
+   fsl,pins = <
+    0x080 0x000 0x1 0x0 0x21a2
+    0x084 0x000 0x1 0x0 0x21a1
+   >;
+  };
+
+  pinctrl_uart1: uart1grp {
+   fsl,pins = <
+    0x068 0x380 0x2 0x0 0x21a2
+    0x06C 0x37C 0x2 0x0 0x21a1
+   >;
+  };
+
+  pinctrl_uart2: uart2grp {
+   fsl,pins = <
+    0x13C 0x38C 0x2 0x2 0x21a2
+    0x140 0x388 0x2 0x2 0x21a1
+    0x144 0x000 0x2 0x0 0x21a2
+    0x148 0x384 0x2 0x1 0x21a1
+   >;
+  };
+
+  pinctrl_usbh1_reg: gpio_usb_vbus {
+   fsl,pins = <
+    0x14C 0x000 0x0 0x0 0x22ed
+   >;
+  };
+ };
+};
+# 12 "arch/arm/boot/dts/vf610-colibri.dtsi" 2
+
+/ {
+ model = "Toradex Colibri VF61 COM";
+ compatible = "toradex,vf610-colibri_vf61", "fsl,vf610";
+
+ memory {
+  reg = <0x80000000 0x10000000>;
+ };
+};
+
+&L2 {
+ arm,data-latency = <2 1 2>;
+ arm,tag-latency = <3 2 3>;
+};
+# 12 "arch/arm/boot/dts/vf610-colibri-eval-v3.dts" 2
+# 1 "arch/arm/boot/dts/vf-colibri-eval-v3.dtsi" 1
+# 10 "arch/arm/boot/dts/vf-colibri-eval-v3.dtsi"
+/ {
+ chosen {
+  bootargs = "console=ttyLP0,115200";
+ };
+
+ clk16m: clk16m {
+  compatible = "fixed-clock";
+  #clock-cells = <0>;
+  clock-frequency = <16000000>;
+ };
+
+ regulators {
+  compatible = "simple-bus";
+  #address-cells = <1>;
+  #size-cells = <0>;
+
+  sys_5v0_reg: regulator@0 {
+   compatible = "regulator-fixed";
+   reg = <0>;
+   regulator-name = "5v0";
+   regulator-min-microvolt = <5000000>;
+   regulator-max-microvolt = <5000000>;
+   regulator-always-on;
+  };
+
+
+  usbh_vbus_reg: regulator@1 {
+   compatible = "regulator-fixed";
+   pinctrl-names = "default";
+   pinctrl-0 = <&pinctrl_usbh1_reg>;
+   reg = <1>;
+   regulator-name = "usbh_vbus";
+   regulator-min-microvolt = <5000000>;
+   regulator-max-microvolt = <5000000>;
+   gpio = <&gpio2 19 1>;
+   vin-supply = <&sys_5v0_reg>;
+  };
+ };
+};
+
+&bl {
+ brightness-levels = <0 4 8 16 32 64 128 255>;
+ default-brightness-level = <6>;
+ status = "okay";
+};
+
+&dspi1 {
+ status = "okay";
+
+ mcp2515can: can@0 {
+  compatible = "microchip,mcp2515";
+  pinctrl-names = "default";
+  pinctrl-0 = <&pinctrl_can_int>;
+  reg = <0>;
+  clocks = <&clk16m>;
+  spi-max-frequency = <10000000>;
+  interrupt-parent = <&gpio1>;
+  interrupts = <11 1>;
+ };
+};
+
+&esdhc1 {
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_esdhc1>;
+ bus-width = <4>;
+ status = "okay";
+};
+
+&fec1 {
+ phy-mode = "rmii";
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_fec1>;
+ status = "okay";
+};
+
+&i2c0 {
+ status = "okay";
+
+
+ rtc: m41t0m6@68 {
+  compatible = "st,m41t00";
+  reg = <0x68>;
+ };
+};
+
+&pwm0 {
+ status = "okay";
+};
+
+&pwm1 {
+ status = "okay";
+};
+
+&uart0 {
+ status = "okay";
+};
+
+&uart1 {
+ status = "okay";
+};
+
+&uart2 {
+ status = "okay";
+};
+
+&usbh1 {
+ vbus-supply = <&usbh_vbus_reg>;
+};
+
+&iomuxc {
+ vf610-colibri {
+  pinctrl_can_int: can_int {
+   fsl,pins = <
+    0x0AC 0x000 0x0 0x0 0x22ed
+   >;
+  };
+ };
+};
+# 13 "arch/arm/boot/dts/vf610-colibri-eval-v3.dts" 2
+
+/ {
+ model = "Toradex Colibri VF61 on Colibri Evaluation Board";
+ compatible = "toradex,vf610-colibri_vf61-on-eval", "toradex,vf610-colibri_vf61", "fsl,vf610";
+};

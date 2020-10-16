@@ -1,0 +1,1 @@
+cmd_drivers/i2c/algos/i2c-algo-pca.ko := arm-linux-gnueabihf-ld -EL -r  -T ./scripts/module-common.lds --build-id  -o drivers/i2c/algos/i2c-algo-pca.ko drivers/i2c/algos/i2c-algo-pca.o drivers/i2c/algos/i2c-algo-pca.mod.o

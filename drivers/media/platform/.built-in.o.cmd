@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/built-in.o :=  arm-linux-gnueabihf-ld -EL    -r -o drivers/media/platform/built-in.o drivers/media/platform/coda/built-in.o drivers/media/platform/soc_camera/built-in.o drivers/media/platform/omap/built-in.o drivers/media/platform/mxc/output/built-in.o 

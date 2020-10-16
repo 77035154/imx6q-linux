@@ -1,0 +1,10 @@
+imx6q-tx6q-1110.o: arch/arm/boot/dts/imx6q-tx6q-1110.dts \
+ arch/arm/boot/dts/imx6q.dtsi \
+ arch/arm/boot/dts/include/dt-bindings/interrupt-controller/irq.h \
+ arch/arm/boot/dts/imx6q-pinfunc.h arch/arm/boot/dts/imx6qdl.dtsi \
+ arch/arm/boot/dts/include/dt-bindings/clock/imx6qdl-clock.h \
+ arch/arm/boot/dts/include/dt-bindings/interrupt-controller/arm-gic.h \
+ arch/arm/boot/dts/skeleton.dtsi arch/arm/boot/dts/imx6qdl-tx6.dtsi \
+ arch/arm/boot/dts/include/dt-bindings/gpio/gpio.h \
+ arch/arm/boot/dts/include/dt-bindings/input/input.h \
+ arch/arm/boot/dts/include/dt-bindings/pwm/pwm.h

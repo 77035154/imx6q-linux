@@ -1,0 +1,10 @@
+vf500-colibri-eval-v3.o: arch/arm/boot/dts/vf500-colibri-eval-v3.dts \
+ arch/arm/boot/dts/vf500-colibri.dtsi arch/arm/boot/dts/vf500.dtsi \
+ arch/arm/boot/dts/skeleton.dtsi arch/arm/boot/dts/vfxxx.dtsi \
+ arch/arm/boot/dts/vf610-pinfunc.h \
+ arch/arm/boot/dts/include/dt-bindings/clock/vf610-clock.h \
+ arch/arm/boot/dts/include/dt-bindings/interrupt-controller/irq.h \
+ arch/arm/boot/dts/include/dt-bindings/gpio/gpio.h \
+ arch/arm/boot/dts/include/dt-bindings/interrupt-controller/arm-gic.h \
+ arch/arm/boot/dts/vf-colibri.dtsi \
+ arch/arm/boot/dts/vf-colibri-eval-v3.dtsi

@@ -1,0 +1,6 @@
+imx53-qsrb.o: arch/arm/boot/dts/imx53-qsrb.dts \
+ arch/arm/boot/dts/imx53-qsb-common.dtsi arch/arm/boot/dts/imx53.dtsi \
+ arch/arm/boot/dts/skeleton.dtsi arch/arm/boot/dts/imx53-pinfunc.h \
+ arch/arm/boot/dts/include/dt-bindings/clock/imx5-clock.h \
+ arch/arm/boot/dts/include/dt-bindings/gpio/gpio.h \
+ arch/arm/boot/dts/include/dt-bindings/input/input.h

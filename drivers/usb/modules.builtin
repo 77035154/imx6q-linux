@@ -1,0 +1,16 @@
+kernel/drivers/usb/chipidea/ci_hdrc.ko
+kernel/drivers/usb/chipidea/ci_hdrc_usb2.ko
+kernel/drivers/usb/chipidea/ci_hdrc_msm.ko
+kernel/drivers/usb/chipidea/ci_hdrc_zevio.ko
+kernel/drivers/usb/chipidea/usbmisc_imx.ko
+kernel/drivers/usb/chipidea/ci_hdrc_imx.ko
+kernel/drivers/usb/common/usb-common.ko
+kernel/drivers/usb/common/usb-otg-fsm.ko
+kernel/drivers/usb/core/usbcore.ko
+kernel/drivers/usb/gadget/udc/udc-core.ko
+kernel/drivers/usb/host/ehci-hcd.ko
+kernel/drivers/usb/host/ehci-mxc.ko
+kernel/drivers/usb/misc/ehset.ko
+kernel/drivers/usb/phy/phy-generic.ko
+kernel/drivers/usb/phy/phy-mxs-usb.ko
+kernel/drivers/usb/storage/usb-storage.ko

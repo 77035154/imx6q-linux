@@ -1,0 +1,4 @@
+kernel/drivers/gpio/gpio-generic.ko
+kernel/drivers/gpio/gpio-74x164.ko
+kernel/drivers/gpio/gpio-max732x.ko
+kernel/drivers/gpio/gpio-pca953x.ko

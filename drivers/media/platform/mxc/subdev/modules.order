@@ -1,0 +1,6 @@
+kernel/drivers/media/platform/mxc/subdev/mx6s_capture.ko
+kernel/drivers/media/platform/mxc/subdev/mxc_vadc.ko
+kernel/drivers/media/platform/mxc/subdev/mxc_mipi_csi.ko
+kernel/drivers/media/platform/mxc/subdev/ov5640_camera.ko
+kernel/drivers/media/platform/mxc/subdev/ov5640_camera_mipi.ko
+kernel/drivers/media/platform/mxc/subdev/ov5647_camera_mipi.ko

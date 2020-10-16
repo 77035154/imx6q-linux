@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/mxc/capture/ov5640_camera_int.ko := arm-linux-gnueabihf-ld -EL -r  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/mxc/capture/ov5640_camera_int.ko drivers/media/platform/mxc/capture/ov5640_camera_int.o drivers/media/platform/mxc/capture/ov5640_camera_int.mod.o

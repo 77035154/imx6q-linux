@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/mxc/capture/mxc_v4l2_capture.ko := arm-linux-gnueabihf-ld -EL -r  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/mxc/capture/mxc_v4l2_capture.ko drivers/media/platform/mxc/capture/mxc_v4l2_capture.o drivers/media/platform/mxc/capture/mxc_v4l2_capture.mod.o

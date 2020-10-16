@@ -1,0 +1,5 @@
+kernel/drivers/input/misc/mma8450.ko
+kernel/drivers/input/misc/mpl3115.ko
+kernel/drivers/input/misc/fxls8471.ko
+kernel/drivers/input/misc/fxls8471_i2c.ko
+kernel/drivers/input/misc/isl29023.ko

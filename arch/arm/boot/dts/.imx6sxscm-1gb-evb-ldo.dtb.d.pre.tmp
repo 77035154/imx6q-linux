@@ -1,0 +1,10 @@
+imx6sxscm-1gb-evb-ldo.o: arch/arm/boot/dts/imx6sxscm-1gb-evb-ldo.dts \
+ arch/arm/boot/dts/imx6sxscm-evb-ldo.dts \
+ arch/arm/boot/dts/imx6sxscm-evb.dts \
+ arch/arm/boot/dts/include/dt-bindings/gpio/gpio.h \
+ arch/arm/boot/dts/include/dt-bindings/input/input.h \
+ arch/arm/boot/dts/imx6sx.dtsi \
+ arch/arm/boot/dts/include/dt-bindings/clock/imx6sx-clock.h \
+ arch/arm/boot/dts/include/dt-bindings/interrupt-controller/arm-gic.h \
+ arch/arm/boot/dts/include/dt-bindings/interrupt-controller/irq.h \
+ arch/arm/boot/dts/imx6sx-pinfunc.h arch/arm/boot/dts/skeleton.dtsi

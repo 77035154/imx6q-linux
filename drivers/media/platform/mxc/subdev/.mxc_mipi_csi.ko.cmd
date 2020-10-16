@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/mxc/subdev/mxc_mipi_csi.ko := arm-linux-gnueabihf-ld -EL -r  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/mxc/subdev/mxc_mipi_csi.ko drivers/media/platform/mxc/subdev/mxc_mipi_csi.o drivers/media/platform/mxc/subdev/mxc_mipi_csi.mod.o

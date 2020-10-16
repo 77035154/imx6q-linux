@@ -1,0 +1,7 @@
+kernel/drivers/mxc/hdmi-cec/mxc_hdmi-cec.ko
+kernel/drivers/mxc/ipu3/prg.ko
+kernel/drivers/mxc/ipu3/pre.ko
+kernel/drivers/mxc/mipi/mxc_mipi_csi2.ko
+kernel/drivers/mxc/mlb/mxc_mlb.ko
+kernel/drivers/mxc/sim/imx_sim.ko
+kernel/drivers/mxc/vpu/mxc_vpu.ko

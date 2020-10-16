@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/mxc/subdev/mx6s_capture.ko := arm-linux-gnueabihf-ld -EL -r  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/mxc/subdev/mx6s_capture.ko drivers/media/platform/mxc/subdev/mx6s_capture.o drivers/media/platform/mxc/subdev/mx6s_capture.mod.o
